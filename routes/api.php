@@ -29,3 +29,5 @@ Route::post('/todos', [TodoController::class, 'store']);
 Route::put('/todos/{todo}', [TodoController::class, 'update']);
 // delete a todo
 Route::delete('/todos/{todo}', [TodoController::class, 'destroy']);
+// mark a todo as completed
+Route::put('/todos/{todo}/complete', [TodoController::class, 'complete']);

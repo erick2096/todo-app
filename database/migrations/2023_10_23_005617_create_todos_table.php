@@ -17,6 +17,7 @@ class CreateTodosTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->dateTime('completed_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

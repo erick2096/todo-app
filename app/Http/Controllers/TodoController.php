@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -64,6 +65,20 @@ class TodoController extends Controller
     public function destroy(Todo $todo)
     {
         $todo->delete();
-        return response()->json(['info' => 'successfully deleted a todo']);
+        return response()->json(['info' => 'successfully deleted a todo.']);
+    }
+
+    /**
+     * Mark todo as completed
+     *
+     * @param Todo  $todo
+     * @return \Illuminate\Http\Response
+     */
+    public function complete(Todo $todo)
+    {
+        $todo->completed_at = Carbon::now();
+        $todo->save();
+
+        return response()->json(['info' => 'successfully marked a todo as completed.']);
     }
 }
