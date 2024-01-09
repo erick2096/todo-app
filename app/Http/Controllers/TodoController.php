@@ -31,12 +31,11 @@ class TodoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Todo $todo)
     {
-        $todo = Todo::find($id);
         return $todo;
     }
 
@@ -44,24 +43,27 @@ class TodoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Todo $todo)
     {
-        $todo = Todo::find($id);
-        $todo->update($request->all());
+        $todo->title = $request->title;
+        $todo->description = $request->description;
+        $todo->save();
+
         return $todo;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Todo $todo)
     {
-        return Todo::destroy($id);
+        $todo->delete();
+        return response()->json(['info' => 'successfully deleted a todo']);
     }
 }
